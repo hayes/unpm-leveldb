@@ -1,0 +1,24 @@
+{
+  "name": "fnpm-leveldb",
+  "version": "0.0.0",
+  "description": "leveldb backend for fnpm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mghayes/fnpm-leveldb"
+  },
+  "author": "Michael Hayes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mghayes/fnpm-leveldb/issues"
+  },
+  "homepage": "https://github.com/mghayes/fnpm-leveldb",
+  "dependencies": {
+    "levelup": "~0.18.2",
+    "leveldown": "~0.10.2",
+    "mkdirp": "~0.3.5"
+  }
+}
