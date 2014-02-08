@@ -1,6 +1,6 @@
 {
   "name": "fnpm-leveldb",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "leveldb backend for fnpm",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/mghayes/fnpm-leveldb",
   "dependencies": {
-    "levelup": "~0.18.2",
-    "leveldown": "~0.10.2",
-    "mkdirp": "~0.3.5"
+    "concat-stream": "~1.4.1",
+    "resumer": "0.0.0",
+    "level-sublevel": "~5.2.0"
   }
 }

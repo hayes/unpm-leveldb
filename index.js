@@ -1,18 +1,14 @@
-var levelup = require('levelup')
-  , mkdirp = require('mkdirp')
-  , path = require('path')
-  , fs = require('fs')
+var Sublevel = require('level-sublevel')
+  , concat = require('concat-stream')
+  , resumer = require('resumer')
 
 module.exports = setup
 
-function setup(data_path) {
-  var tar_dir = path.join(data_path, 'files')
-    , module_db
-    , user_db
+function setup(db) {
+  db = Sublevel(db)
 
-  mkdirp.sync(tar_dir)
-  module_db = levelup(path.join(data_path, 'db'))
-  user_db = levelup(path.join(data_path, 'users'))
+  var module_db = db.sublevel('moduls')
+    , user_db = db.sublevel('users')
 
   return {
       get_user: get_user
@@ -50,19 +46,29 @@ function setup(data_path) {
   }
 
   function get_tarball(name, version) {
-    return fs.createReadStream(
-        tar_dir + '/' + name + '/' + name + version + '.tgz'
-    )
+    var tarball_stream = resumer()
+
+    module_db.get(name + '@' + version + '.tgz', on_data)
+
+    return tarball_stream
+
+    function on_data(err, data) {
+      if(err) {
+        return tarball_stream.emit('error')
+      }
+
+      data = new Buffer(data, 'base64')
+      tarball_stream.write(data)
+      tarball_stream.end()
+    }
   }
 
   function set_tarball(name, version) {
-    var dir = path.join(tar_dir, name)
+    return concat(on_data)
 
-    mkdirp.sync(dir)
-
-    return fs.createWriteStream(
-        dir + '/' + name + version + '.tgz'
-    )
+    function on_data(data) {
+      module_db.put(name + '@' + version + '.tgz', data.toString('base64'))
+    }
   }
 }
 
