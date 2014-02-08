@@ -57,7 +57,6 @@ function setup(db) {
         return tarball_stream.emit('error')
       }
 
-      data = new Buffer(data, 'base64')
       tarball_stream.write(data)
       tarball_stream.end()
     }
@@ -67,7 +66,7 @@ function setup(db) {
     return concat(on_data)
 
     function on_data(data) {
-      module_db.put(name + '@' + version + '.tgz', data.toString('base64'))
+      module_db.put(name + '@' + version + '.tgz', data)
     }
   }
 }
