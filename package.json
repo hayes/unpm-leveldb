@@ -1,6 +1,6 @@
 {
   "name": "fnpm-leveldb",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "leveldb backend for fnpm",
   "main": "index.js",
   "scripts": {
