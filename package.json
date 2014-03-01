@@ -1,21 +1,21 @@
 {
-  "name": "fnpm-leveldb",
-  "version": "0.0.6",
-  "description": "leveldb backend for fnpm",
+  "name": "unpm-leveldb",
+  "version": "0.1.0",
+  "description": "leveldb backend for μnpm",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mghayes/fnpm-leveldb"
+    "url": "https://github.com/mghayes/unpm-leveldb"
   },
   "author": "Michael Hayes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mghayes/fnpm-leveldb/issues"
+    "url": "https://github.com/mghayes/unpm-leveldb/issues"
   },
-  "homepage": "https://github.com/mghayes/fnpm-leveldb",
+  "homepage": "https://github.com/mghayes/unpm-leveldb",
   "dependencies": {
     "concat-stream": "~1.4.1",
     "resumer": "0.0.0",

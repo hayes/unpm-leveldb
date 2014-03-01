@@ -17,8 +17,6 @@ function setup(db) {
     , set_meta: set_meta
     , get_tarball: get_tarball
     , set_tarball: set_tarball
-    , get_module_meta: get_module_meta
-    , set_module_meta: set_module_meta
   }
 
   function get_user(name, done) {
@@ -28,21 +26,12 @@ function setup(db) {
   function set_user(name, data, done) {
     user_db.put(name, JSON.stringify(data), done)
   }
-
-  function get_module_meta(name, done) {
+  function get_meta(name, done) {
     module_db.get(name, db_resonse(done))
   }
 
-  function set_module_meta(name, meta, done) {
+  function set_meta(name, meta, done) {
     module_db.put(name, JSON.stringify(meta), done)
-  }
-
-  function get_meta(name, version, done) {
-    module_db.get(name + '@' + version, db_resonse(done))
-  }
-
-  function set_meta(name, version, meta, done) {
-    module_db.put(name + '@' + version, JSON.stringify(meta), done)
   }
 
   function get_tarball(name, version) {

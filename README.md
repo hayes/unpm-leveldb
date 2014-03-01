@@ -1,4 +1,4 @@
-fnpm-leveldb
+μnpm-leveldb
 ============
 
-leveldb backend for fnpm
+leveldb backend for μnpm
