@@ -52,10 +52,18 @@ function setup(db) {
   }
 
   function set_tarball(name, version) {
-    return concat(on_data)
+    var stream = concat(on_data)
+
+    return stream
 
     function on_data(data) {
-      module_db.put(name + '@' + version + '.tgz', data)
+      module_db.put(name + '@' + version + '.tgz', data, function(err) {
+        if(err) {
+          return stream.emit('error', err)
+        }
+
+        stream.emit('end')
+      })
     }
   }
 }
