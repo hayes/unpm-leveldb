@@ -15,14 +15,15 @@ This module exports an object with the following properties:
   `JSON.stringify`-able blob of your user data. This should have keys:
 
   ```js
-  var user = {}
-
-  user.name = <username>
-  user.email = <email>
-  user.salt = <salt>
-  user.date = <date>
-  user.password_hash = <hashed_password>
+  {
+      name: <username>
+    , email: <email>
+    , salt: <salt>
+    , date: <date>
+    , password_hash: <hashed_password>
+  }
   ```
+
   
   It calls a node style callback (`function(error, data)`) when it's been
   set in the database.
@@ -33,16 +34,14 @@ This module exports an object with the following properties:
 
 - `set_meta(name, meta, done)`: Set meta-data for a package called `name` and
   call a node style callback (`function(error, data)`) when it's been retrieved
-  from the database. `meta` is an object that looks like the [following
-  gist](https://gist.github.com/mghayes/9459409)
+  from the database. `meta` is an object that looks like
+  [EXAMPLE-META-DATA.json](./EXAMPLE-META-DATA.json)
 
 - `get_tarball(name, version)` -> `ReadableStream`:  Retrieve a package tarball
-  from the database. This returns a byte  stream of the `.tgz`.
+  from the database. This returns a byte stream of the `.tgz`.
 
 - `set_tarball(name, version)` -> `WritableStream`: Create a writable stream
   which uploads the tarball to the DB. The tarball must conform to the
   specification described by
   [npm-install](https://www.npmjs.org/doc/cli/npm-install.html)
-
-
 
