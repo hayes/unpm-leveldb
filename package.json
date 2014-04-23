@@ -13,9 +13,9 @@
   "author": "Michael Hayes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mghayes/unpm-leveldb/issues"
+    "url": "https://github.com/hayes/unpm-leveldb/issues"
   },
-  "homepage": "https://github.com/mghayes/unpm-leveldb",
+  "homepage": "https://github.com/hayes/unpm-leveldb",
   "dependencies": {
     "concat-stream": "~1.4.1",
     "resumer": "0.0.0",

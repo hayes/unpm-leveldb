@@ -7,37 +7,29 @@ module.exports = setup
 function setup(db) {
   db = Sublevel(db)
 
-  var module_db = db.sublevel('moduls')
-    , user_db = db.sublevel('users')
+  var module_db = db.sublevel('moduls', {valueEncoding : 'json'})
+    , user_db = db.sublevel('users', {valueEncoding : 'json'})
+    , etc_db = db.sublevel('etc', {valueEncoding : 'json'})
+    , tgz_db = db.sublevel('tgz')
 
   return {
-      get_user: get_user
-    , set_user: set_user
-    , get_meta: get_meta
-    , set_meta: set_meta
-    , get_tarball: get_tarball
-    , set_tarball: set_tarball
-  }
-
-  function get_user(name, done) {
-    user_db.get(name, db_resonse(done))
-  }
-
-  function set_user(name, data, done) {
-    user_db.put(name, JSON.stringify(data), done)
-  }
-  function get_meta(name, done) {
-    module_db.get(name, db_resonse(done))
-  }
-
-  function set_meta(name, meta, done) {
-    module_db.put(name, JSON.stringify(meta), done)
+      get: etc_db.get.bind(etc_db)
+    , set: etc_db.put.bind(etc_db)
+    , getUser: user_db.get.bind(user_db)
+    , setUser: user_db.put.bind(user_db)
+    , getMeta: module_db.get.bind(module_db)
+    , setMeta: module_db.put.bind(module_db)
+    , getTarball: get_tarball
+    , setTarball: set_tarball
+    . createStream: etc_db.createReadStream.bind(etc_db)
+    , createUserStream: user_db.createReadStream.bind(user_db)
+    , createMetaStream: meta_db.createReadStream.bind(module_db)
   }
 
   function get_tarball(name, version) {
     var tarball_stream = resumer()
 
-    module_db.get(name + '@' + version + '.tgz', on_data)
+    tgz_db.get(name + '@' + version + '.tgz', on_data)
 
     return tarball_stream
 
@@ -57,23 +49,13 @@ function setup(db) {
     return stream
 
     function on_data(data) {
-      module_db.put(name + '@' + version + '.tgz', data, function(err) {
+      tgz_db.put(name + '@' + version + '.tgz', data, function(err) {
         if(err) {
           return stream.emit('error', err)
         }
 
         stream.emit('end')
       })
-    }
-  }
-}
-
-function db_resonse(done) {
-  return function(err, data) {
-    try {
-      done(err, data ? JSON.parse(data) : [])
-    } catch(err) {
-      done(err)
     }
   }
 }
