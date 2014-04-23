@@ -22,7 +22,7 @@ function setup(db) {
     , setTarball: set_tarball
     . createStream: etc_db.createReadStream.bind(etc_db)
     , createUserStream: user_db.createReadStream.bind(user_db)
-    , createMetaStream: user_db.createReadStream.bind(module_db)
+    , createMetaStream: meta_db.createReadStream.bind(module_db)
   }
 
   function get(name, done) {
