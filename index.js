@@ -7,9 +7,9 @@ module.exports = setup
 function setup(db) {
   db = Sublevel(db)
 
-  var module_db = db.sublevel('moduls', {valueEncoding : 'json'})
-    , user_db = db.sublevel('users', {valueEncoding : 'json'})
-    , etc_db = db.sublevel('etc', {valueEncoding : 'json'})
+  var user_db = db.sublevel('users', {valueEncoding: 'json'})
+    , meta_db = db.sublevel('meta', {valueEncoding: 'json'})
+    , etc_db = db.sublevel('etc', {valueEncoding: 'json'})
     , tgz_db = db.sublevel('tgz')
 
   return {
@@ -17,13 +17,13 @@ function setup(db) {
     , set: etc_db.put.bind(etc_db)
     , getUser: user_db.get.bind(user_db)
     , setUser: user_db.put.bind(user_db)
-    , getMeta: module_db.get.bind(module_db)
-    , setMeta: module_db.put.bind(module_db)
+    , getMeta: meta_db.get.bind(meta_db)
+    , setMeta: meta_db.put.bind(meta_db)
     , getTarball: get_tarball
     , setTarball: set_tarball
-    . createStream: etc_db.createReadStream.bind(etc_db)
+    , createStream: etc_db.createReadStream.bind(etc_db)
     , createUserStream: user_db.createReadStream.bind(user_db)
-    , createMetaStream: meta_db.createReadStream.bind(module_db)
+    , createMetaStream: meta_db.createReadStream.bind(meta_db)
   }
 
   function get_tarball(name, version) {
