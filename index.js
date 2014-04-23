@@ -9,14 +9,28 @@ function setup(db) {
 
   var module_db = db.sublevel('moduls')
     , user_db = db.sublevel('users')
+    , etc_db = db.sublevel('etc')
 
   return {
-      get_user: get_user
-    , set_user: set_user
-    , get_meta: get_meta
-    , set_meta: set_meta
-    , get_tarball: get_tarball
-    , set_tarball: set_tarball
+      get: get
+    , set: set
+    , getUser: get_user
+    , setUser: set_user
+    , getMeta: get_meta
+    , setMeta: set_meta
+    , getTarball: get_tarball
+    , setTarball: set_tarball
+    . createStrean: etc_db.createReadStream.bind(etc_db)
+    , createUserStream: user_db.createReadStream.bind(user_db)
+    , createMetaStream: user_db.createReadStream.bind(module_db)
+  }
+
+  function get(name, done) {
+    etc_db.get(name, db_resonse(done))
+  }
+
+  function set(name, data, done) {
+    etc_db.put(name, JSON.stringify(data), done)
   }
 
   function get_user(name, done) {
@@ -26,6 +40,7 @@ function setup(db) {
   function set_user(name, data, done) {
     user_db.put(name, JSON.stringify(data), done)
   }
+
   function get_meta(name, done) {
     module_db.get(name, db_resonse(done))
   }
