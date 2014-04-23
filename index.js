@@ -20,7 +20,7 @@ function setup(db) {
     , setMeta: set_meta
     , getTarball: get_tarball
     , setTarball: set_tarball
-    . createStrean: etc_db.createReadStream.bind(etc_db)
+    . createStream: etc_db.createReadStream.bind(etc_db)
     , createUserStream: user_db.createReadStream.bind(user_db)
     , createMetaStream: user_db.createReadStream.bind(module_db)
   }
