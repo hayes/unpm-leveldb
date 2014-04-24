@@ -1,6 +1,6 @@
 {
   "name": "unpm-leveldb",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "leveldb backend for μnpm",
   "main": "index.js",
   "scripts": {
