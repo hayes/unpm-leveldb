@@ -67,7 +67,7 @@ function setup(db) {
       }
 
       done(val, old)
-      backend.emit(ev, val, old)
+      backend.emit(ev, name, val, old)
     }
   }
 
@@ -92,7 +92,7 @@ function setup(db) {
       }
 
       done(old)
-      backend.emit(ev, old)
+      backend.emit(ev, name, old)
     }
   }
 
@@ -129,7 +129,7 @@ function setup(db) {
     }
   }
 
-  function remove_tarball(name, version) {
+  function remove_tarball(name, version, done) {
     tgz_db.del(name + '@' + version + '.tgz', done)
   }
 }
