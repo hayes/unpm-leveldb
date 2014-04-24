@@ -17,26 +17,40 @@ function setup(db) {
 
   backend.getTarball = get_tarball
   backend.setTarball = set_tarball
-  backend.get = etc_db.get.bind(etc_db)
+  backend.removeTarball = remove_tarball
+
+  backend.get = get.bind(null, etc_db)
   backend.set = set.bind(etc_db, 'set')
   backend.remove = remove.bind(etc_db, 'remove')
-  backend.getUser = user_db.get.bind(user_db)
+  backend.createStream = etc_db.createReadStream.bind(etc_db)
+
+  backend.getUser = get.bind(null, user_db)
   backend.setUser = set.bind(user_db, 'setUser')
   backend.removeUser = remove.bind(user_db, 'removeUser')
-  backend.getMeta = meta_db.get.bind(meta_db)
+  backend.createUserStream = user_db.createReadStream.bind(user_db)
+
+  backend.getMeta = get.bind(null, meta_db)
   backend.setMeta = set.bind(meta_db, 'setMeta')
   backend.removeMeta = remove.bind(meta_db, 'removeMeta')
-  backend.createStream = etc_db.createReadStream.bind(etc_db)
-  backend.createUserStream = user_db.createReadStream.bind(user_db)
   backend.createMetaStream = meta_db.createReadStream.bind(meta_db)
 
   return backend
 
-  function set(ev, name, data, done) {
+  function get(db, name, done) {
+    db.get(name, function(err, data) {
+      if(err) {
+        return done(err.notFound ? null : err, null)
+      }
+
+      done(null, data)
+    })
+  }
+
+  function set(ev, name, val, done) {
     var db = this
       , old
 
-    db.get(name, got_old)
+    get(db, name, got_old)
 
     function got_old(err, data) {
       if(err) {
@@ -44,7 +58,7 @@ function setup(db) {
       }
 
       old = data
-      db.put(name, data, set_data)
+      db.put(name, val, set_data)
     }
 
     function set_data(err) {
@@ -53,7 +67,7 @@ function setup(db) {
       }
 
       done()
-      backend.emit(ev, data, old)
+      backend.emit(ev, val, old)
     }
   }
 
@@ -61,7 +75,7 @@ function setup(db) {
     var db = this
       , old
 
-    db.get(name, got_old)
+    get(db, name, got_old)
 
     function got_old(err, data) {
       if(err) {
@@ -113,5 +127,9 @@ function setup(db) {
         stream.emit('end')
       })
     }
+  }
+
+  function remove_tarball(name, version) {
+    tgz_db.del(name + '@' + version + '.tgz', done)
   }
 }
