@@ -69,7 +69,7 @@ function setup(db) {
         return done(err)
       }
 
-      done(val, old)
+      done(null, val, old)
       backend.emit(ev, name, val, old)
     }
   }
@@ -95,7 +95,7 @@ function setup(db) {
         return done(err)
       }
 
-      done(old)
+      done(null, old)
       backend.emit(ev, name, old)
     }
   }
