@@ -19,7 +19,7 @@
   "dependencies": {
     "concat-stream": "1.4.1",
     "resumer": "0.0.0",
-    "sublevel": "2.4.0"
+    "level-sublevel": "5.2.0"
   },
   "devDependencies": {
     "memdown": "0.7.1",
