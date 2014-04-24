@@ -36,7 +36,9 @@ function setup(db) {
 
   return backend
 
-  function get(db, name, done) {
+  function get(db, name, _done) {
+    var done = _done || nop
+
     db.get(name, function(err, data) {
       if(err) {
         return done(err.notFound ? null : err, null)
@@ -47,7 +49,8 @@ function setup(db) {
   }
 
   function set(ev, name, val, done) {
-    var db = this
+    var done = _done || nop
+      , db = this
       , old
 
     get(db, name, got_old)
@@ -71,8 +74,9 @@ function setup(db) {
     }
   }
 
-  function remove(ev, name, done) {
-    var db = this
+  function remove(ev, name, _done) {
+    var done = _done || nop
+      , db = this
       , old
 
     get(db, name, got_old)
@@ -129,7 +133,11 @@ function setup(db) {
     }
   }
 
-  function remove_tarball(name, version, done) {
+  function remove_tarball(name, version, _done) {
+    var done = _done || nop
+
     tgz_db.del(name + '@' + version + '.tgz', done)
   }
 }
+
+function nop() {}
