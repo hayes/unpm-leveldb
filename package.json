@@ -4,7 +4,7 @@
   "description": "leveldb backend for μnpm",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,11 @@
   "homepage": "https://github.com/hayes/unpm-leveldb",
   "dependencies": {
     "concat-stream": "~1.4.1",
-    "resumer": "0.0.0",
-    "level-sublevel": "~5.2.0"
+    "resumer": "0.0.0"
+  },
+  "devDependencies": {
+    "memdown": "0.7.1",
+    "levelup": "0.18.2",
+    "unpm-backend-test": "0.0.4"
   }
 }
