@@ -48,7 +48,7 @@ function setup(db) {
     })
   }
 
-  function set(ev, name, val, done) {
+  function set(ev, name, val, _done) {
     var done = _done || nop
       , db = this
       , old
