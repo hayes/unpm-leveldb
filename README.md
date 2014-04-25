@@ -3,6 +3,8 @@
 
 leveldb backend for [μnpm](https://www.npmjs.org/package/unpm)
 
+[![Build Status](https://travis-ci.org/hayes/unpm-leveldb.png?branch=master)](https://travis-ci.org/hayes/unpm-leveldb)
+
 API
 ---
 
