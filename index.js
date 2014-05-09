@@ -109,7 +109,7 @@ function setup(db) {
 
     function on_data(err, data) {
       if(err) {
-        return tarball_stream.emit('error')
+        return tarball_stream.emit('error', err)
       }
 
       tarball_stream.write(data)
